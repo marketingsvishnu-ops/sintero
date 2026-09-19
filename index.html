@@ -1,779 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SportPulse — Latest Sports News</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      color: #17202a;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* HEADER */
-    header {
-      background: #071a2d;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 3px 15px rgba(0,0,0,.15);
-    }
-
-    .topbar {
-      max-width: 1200px;
-      margin: auto;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: #ff3d3d;
-    }
-
-    nav {
-      display: flex;
-      gap: 25px;
-      font-weight: 600;
-    }
-
-    nav a {
-      opacity: .9;
-      transition: .2s;
-    }
-
-    nav a:hover {
-      color: #ff4b4b;
-    }
-
-    .menu-btn {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-    }
-
-    /* BREAKING NEWS */
-    .breaking {
-      background: #e82929;
-      color: white;
-    }
-
-    .breaking-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 11px 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      overflow: hidden;
-    }
-
-    .breaking-label {
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .ticker {
-      white-space: nowrap;
-      animation: ticker 18s linear infinite;
-    }
-
-    @keyframes ticker {
-      from { transform: translateX(100%); }
-      to { transform: translateX(-100%); }
-    }
-
-    /* CONTAINER */
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .section-title h2 {
-      font-size: 25px;
-    }
-
-    .section-title a {
-      color: #e82929;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    /* HERO */
-    .hero {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-    }
-
-    .hero-main {
-      min-height: 420px;
-      background:
-        linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.05)),
-        url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80")
-        center/cover;
-      border-radius: 12px;
-      color: white;
-      display: flex;
-      align-items: flex-end;
-      padding: 35px;
-    }
-
-    .hero-content {
-      max-width: 700px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #e82929;
-      color: white;
-      padding: 6px 11px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      font-size: 39px;
-      line-height: 1.08;
-      margin-bottom: 12px;
-    }
-
-    .hero p {
-      color: #ddd;
-      line-height: 1.5;
-    }
-
-    .side-news {
-      display: grid;
-      gap: 20px;
-    }
-
-    .side-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.07);
-    }
-
-    .side-card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-
-    .side-card-content {
-      padding: 15px;
-    }
-
-    .side-card h3 {
-      font-size: 18px;
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-
-    .meta {
-      color: #7b8794;
-      font-size: 12px;
-    }
-
-    /* LAYOUT */
-    .main-layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    /* NEWS GRID */
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .news-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .news-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.12);
-    }
-
-    .news-card img {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-    }
-
-    .news-content {
-      padding: 17px;
-    }
-
-    .news-content h3 {
-      font-size: 19px;
-      line-height: 1.3;
-      margin: 8px 0;
-    }
-
-    .news-content p {
-      color: #68737d;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* SIDEBAR */
-    .sidebar-box {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
-    }
-
-    .sidebar-box h3 {
-      margin-bottom: 18px;
-      border-left: 4px solid #e82929;
-      padding-left: 10px;
-    }
-
-    /* SCORES */
-    .score {
-      padding: 14px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .score:last-child {
-      border-bottom: 0;
-    }
-
-    .score-league {
-      font-size: 11px;
-      color: #e82929;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .teams {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-    }
-
-    .score-result {
-      text-align: right;
-    }
-
-    .status {
-      font-size: 11px;
-      color: #28a745;
-      margin-top: 4px;
-    }
-
-    /* TABLE */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    th, td {
-      padding: 10px 5px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-    }
-
-    th {
-      color: #777;
-    }
-
-    /* NEWSLETTER */
-    .newsletter {
-      background: #071a2d;
-      color: white;
-      border-radius: 10px;
-      padding: 22px;
-    }
-
-    .newsletter h3 {
-      margin-bottom: 8px;
-    }
-
-    .newsletter p {
-      color: #b8c2cc;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 15px;
-    }
-
-    .newsletter input {
-      width: 100%;
-      padding: 12px;
-      border: 0;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .newsletter button {
-      width: 100%;
-      padding: 12px;
-      border: 0;
-      border-radius: 5px;
-      background: #e82929;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 50px;
-      background: #071a2d;
-      color: white;
-      padding: 40px 20px;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 30px;
-    }
-
-    footer h3 {
-      margin-bottom: 15px;
-    }
-
-    footer p,
-    footer a {
-      color: #aeb9c5;
-      font-size: 14px;
-      line-height: 2;
-      display: block;
-    }
-
-    .copyright {
-      max-width: 1200px;
-      margin: 30px auto 0;
-      padding-top: 20px;
-      border-top: 1px solid #203247;
-      color: #8997a6;
-      font-size: 13px;
-    }
-
-    /* MOBILE */
-    @media (max-width: 800px) {
-      nav {
-        display: none;
-        position: absolute;
-        top: 72px;
-        left: 0;
-        right: 0;
-        background: #071a2d;
-        flex-direction: column;
-        padding: 20px;
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .hero,
-      .main-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-main {
-        min-height: 350px;
-      }
-
-      .news-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .hero-main {
-        padding: 22px;
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICESUPER Demo</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0f1020;
+  color:white;
+}
+
+.container{
+  display:flex;
+  min-height:100vh;
+}
+
+.demo{
+  width:70%;
+  background:#111;
+}
+
+iframe{
+  width:100%;
+  height:100vh;
+  border:none;
+}
+
+.right{
+  width:30%;
+  padding:30px 22px;
+  background:linear-gradient(180deg,#181a35,#0b0c18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.box{
+  width:100%;
+  background:rgba(10,10,10,.92);
+  border:1px solid #d4af37;
+  border-radius:22px;
+  padding:26px 20px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(212,175,55,.35);
+}
+
+.badge{
+  display:inline-block;
+  background:#d4af37;
+  color:#111;
+  padding:8px 18px;
+  border-radius:30px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+h1{
+  font-size:32px;
+  color:#ffd86b;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  margin-bottom:22px;
+  color:#eee;
+}
+
+.features{
+  display:grid;
+  gap:12px;
+  margin:22px 0;
+}
+
+.feature{
+  background:linear-gradient(90deg,#1b1b1b,#2b2208);
+  border:1px solid rgba(212,175,55,.6);
+  padding:14px;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.feature span{
+  color:#ffd86b;
+}
+
+.website-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.website-row a{
+  text-decoration:none;
+}
+
+.website{
+  color:#25D366;
+}
+
+.whatsapp-small{
+  color:#ffd86b;
+}
+
+.cta{
+  display:block;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:17px;
+  border-radius:16px;
+  font-size:20px;
+  font-weight:900;
+  margin-top:22px;
+  box-shadow:0 8px 18px rgba(37,211,102,.35);
+  transition:.3s;
+}
+
+.cta:hover{
+  transform:scale(1.03);
+  background:#1ebe5d;
+}
+
+.trust{
+  margin-top:16px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#aaa;
+  line-height:1.5;
+}
+
+@media(max-width:768px){
+  .container{
+    flex-direction:column;
+  }
+
+  .demo,
+  .right{
+    width:100%;
+  }
+
+  iframe{
+    height:500px;
+  }
+
+  .right{
+    padding:20px;
+  }
+}
+
+@media(max-width:480px){
+  h1{
+    font-size:26px;
+  }
+
+  .sub{
+    font-size:16px;
+  }
+
+  .feature{
+    font-size:16px;
+    padding:12px;
+  }
+
+  .cta{
+    font-size:18px;
+    padding:15px;
+  }
+
+  .website-row{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="topbar">
-      <a href="#" class="logo">Sport<span>Pulse</span></a>
+<div class="container">
 
-      <nav id="nav">
-        <a href="#">Home</a>
-        <a href="#football">Football</a>
-        <a href="#cricket">Cricket</a>
-        <a href="#basketball">Basketball</a>
-        <a href="#tennis">Tennis</a>
-        <a href="#more">More</a>
-      </nav>
+  <div class="demo">
+    <iframe src="https://icesuper.info/"></iframe>
+  </div>
 
-      <div class="menu-btn" onclick="toggleMenu()">☰</div>
-    </div>
-  </header>
+  <div class="right">
+    <div class="box">
 
-  <!-- BREAKING NEWS -->
-  <div class="breaking">
-    <div class="breaking-inner">
-      <span class="breaking-label">🔴 BREAKING</span>
-      <div class="ticker">
-        Championship action continues tonight • Latest scores and transfer news •
-        Follow SportPulse for live updates
+      <div class="badge">ICESUPER OFFICIAL</div>
+
+      <h1>ICESUPER WHITELABEL &amp; MASTER AVAILABLE</h1>
+
+      <p class="sub">
+        Get your Icesuper Whitelabel and Master Panel
+        in the cheapest rate.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          Whitelabel: <span>Available Now</span>
+        </div>
+
+        <div class="feature">
+          Master Panel: <span>Available Now</span>
+        </div>
+
+        <div class="feature">
+          Cheapest Rate: <span>Best Price</span>
+        </div>
+
+        <div class="feature">
+          Website: <span>icesuper.info</span>
+        </div>
       </div>
+
+      <div class="website-row">
+        <a class="website" href="https://icesuper.info/" target="_blank">
+          🌐 icesuper.info
+        </a>
+
+        <a class="whatsapp-small" href="https://wa.me/+447767775396" target="_blank">
+          💬 WhatsApp
+        </a>
+      </div>
+
+      <a class="cta"
+         href="https://wa.me/+447767775396?text=Hello%20I%20want%20Icesuper%20Whitelabel%20or%20Master"
+         target="_blank">
+        📲 WhatsApp Now
+      </a>
+
+      <p class="trust">
+        ✅ Check our website on left side<br>
+        ✅ Direct WhatsApp support<br>
+        ✅ Cheapest rate available<br>
+        📞 +447767775396
+      </p>
+
+      <div class="footer">
+        Icesuper Whitelabel &amp; Master Available | Contact on WhatsApp
+      </div>
+
     </div>
   </div>
 
-  <main class="container">
-
-    <!-- HERO -->
-    <div class="section-title">
-      <h2>Top Stories</h2>
-      <a href="#">VIEW ALL →</a>
-    </div>
-
-    <section class="hero">
-
-      <article class="hero-main">
-        <div class="hero-content">
-          <span class="tag">Football</span>
-          <h1>Big Match Weekend: Teams Prepare for a High-Stakes Battle</h1>
-          <p>
-            The latest sporting action brings another exciting weekend of
-            competition as teams look to make their mark.
-          </p>
-          <div class="meta" style="color:#ccc;margin-top:12px;">
-            18 Sep 2026 · 10:30 AM
-          </div>
-        </div>
-      </article>
-
-      <div class="side-news">
-
-        <article class="side-card">
-          <img
-            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=700&q=80"
-            alt="Cricket"
-          />
-          <div class="side-card-content">
-            <span class="tag">Cricket</span>
-            <h3>Cricket season heats up as rivals meet again</h3>
-            <div class="meta">2 hours ago</div>
-          </div>
-        </article>
-
-        <article class="side-card">
-          <img
-            src="https://images.unsplash.com/photo-1518065896235-a4c93e088e7d?auto=format&fit=crop&w=700&q=80"
-            alt="Basketball"
-          />
-          <div class="side-card-content">
-            <span class="tag">Basketball</span>
-            <h3>Stars ready for another night of intense action</h3>
-            <div class="meta">4 hours ago</div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- MAIN -->
-    <section class="main-layout">
-
-      <div>
-
-        <div class="section-title">
-          <h2>Latest News</h2>
-          <a href="#">MORE NEWS →</a>
-        </div>
-
-        <div class="news-grid">
-
-          <article class="news-card" id="football">
-            <img
-              src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80"
-              alt="Football"
-            />
-            <div class="news-content">
-              <span class="tag">Football</span>
-              <h3>Managers reveal plans ahead of the weekend fixtures</h3>
-              <p>
-                Coaches have discussed their preparations and expectations
-                ahead of another important round of matches.
-              </p>
-              <div class="meta" style="margin-top:12px;">1 hour ago</div>
-            </div>
-          </article>
-
-          <article class="news-card" id="cricket">
-            <img
-              src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=800&q=80"
-              alt="Cricket"
-            />
-            <div class="news-content">
-              <span class="tag">Cricket</span>
-              <h3>Batters shine as teams compete in thrilling contest</h3>
-              <p>
-                A strong batting display has set up an exciting finish in
-                today's latest cricket action.
-              </p>
-              <div class="meta" style="margin-top:12px;">2 hours ago</div>
-            </div>
-          </article>
-
-          <article class="news-card" id="basketball">
-            <img
-              src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80"
-              alt="Basketball"
-            />
-            <div class="news-content">
-              <span class="tag">Basketball</span>
-              <h3>League contenders look to build momentum</h3>
-              <p>
-                Teams are entering a crucial part of the season with every
-                result becoming increasingly important.
-              </p>
-              <div class="meta" style="margin-top:12px;">3 hours ago</div>
-            </div>
-          </article>
-
-          <article class="news-card" id="tennis">
-            <img
-              src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80"
-              alt="Tennis"
-            />
-            <div class="news-content">
-              <span class="tag">Tennis</span>
-              <h3>Top players advance after dramatic matches</h3>
-              <p>
-                Several close encounters produced plenty of excitement as the
-                tournament moved into its next stage.
-              </p>
-              <div class="meta" style="margin-top:12px;">5 hours ago</div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- SIDEBAR -->
-      <aside>
-
-        <div class="sidebar-box">
-          <h3>Live Scores</h3>
-
-          <div class="score">
-            <div class="score-league">FOOTBALL · LIVE</div>
-            <div class="teams">
-              <span>United FC</span>
-              <div class="score-result">
-                2 - 1
-                <div class="status">72'</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="score">
-            <div class="score-league">CRICKET · ODI</div>
-            <div class="teams">
-              <span>Team A</span>
-              <div class="score-result">
-                246/6
-                <div class="status">42.3 overs</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="score">
-            <div class="score-league">BASKETBALL · FINAL</div>
-            <div class="teams">
-              <span>City Lions</span>
-              <div class="score-result">
-                108 - 104
-                <div class="status">Final</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sidebar-box">
-          <h3>League Table</h3>
-
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Team</th>
-                <th>Pts</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>City FC</td>
-                <td>42</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>United FC</td>
-                <td>39</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Rovers</td>
-                <td>36</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Athletic</td>
-                <td>34</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="newsletter">
-          <h3>Get Sports Updates</h3>
-          <p>
-            Subscribe for the latest sports news, scores and major headlines.
-          </p>
-
-          <input
-            type="email"
-            id="email"
-            placeholder="Your email address"
-          />
-
-          <button onclick="subscribe()">SUBSCRIBE</button>
-        </div>
-
-      </aside>
-
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-
-      <div>
-        <h3>SportPulse</h3>
-        <p>
-          Your destination for sports news, scores, match updates and
-          headlines from around the world.
-        </p>
-      </div>
-
-      <div>
-        <h3>Sports</h3>
-        <a href="#football">Football</a>
-        <a href="#cricket">Cricket</a>
-        <a href="#basketball">Basketball</a>
-        <a href="#tennis">Tennis</a>
-      </div>
-
-      <div>
-        <h3>Company</h3>
-        <a href="#">About Us</a>
-        <a href="#">Contact</a>
-        <a href="#">Advertise</a>
-        <a href="#">Careers</a>
-      </div>
-
-      <div>
-        <h3>Follow</h3>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">X / Twitter</a>
-        <a href="#">YouTube</a>
-      </div>
-
-    </div>
-
-    <div class="copyright">
-      © 2026 SportPulse. All rights reserved.
-    </div>
-  </footer>
-
-  <script>
-    function toggleMenu() {
-      document.getElementById("nav").classList.toggle("active");
-    }
-
-    function subscribe() {
-      const email = document.getElementById("email").value;
-
-      if (!email) {
-        alert("Please enter your email address.");
-        return;
-      }
-
-      alert("Thanks for subscribing to SportPulse!");
-      document.getElementById("email").value = "";
-    }
-  </script>
+</div>
 
 </body>
 </html>
+```
